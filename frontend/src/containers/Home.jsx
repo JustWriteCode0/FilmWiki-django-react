@@ -1,9 +1,9 @@
 import React from "react";
 import {Grid, Box, Typography, Button} from '@mui/material'
-import { Link, Routes, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
-const IndexPage = () => {
+const Home = () => {
    return (
     <>
     <Grid container paddingLeft='15px'>
@@ -27,9 +27,6 @@ const IndexPage = () => {
                     <Button className='buttons-index buttons-index-signUp'>
                         Sign up
                     </Button>
-                    <Link to="/films">
-                        <Typography>skip</Typography>
-                    </Link>
                 </Link>
             </Box>
         </Grid>
@@ -38,4 +35,4 @@ const IndexPage = () => {
     )
 }
 
-export default IndexPage
+export default Home

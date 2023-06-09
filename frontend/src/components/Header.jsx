@@ -1,10 +1,10 @@
 import React from "react";
 import { Toolbar, Typography, AppBar} from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import LoginPage from "../pages/LoginPage";
-import RegistrationPage from '../pages/RegistrationPage';
-import FilmsPage from '../pages/FilmsPage';
-import IndexPage from '../pages/IndexPage';
+import Login from "../containers/Login";
+import Signup from "../containers/Signup";
+import CatalogFilms from "../containers/CatalogFilms";
+import Home from "../containers/Home";
 
 
 const Header = () => {
@@ -18,10 +18,10 @@ const Header = () => {
           </Toolbar>
         </AppBar>
         <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/films" element={<FilmsPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Signup />} />
+          <Route path="/films" element={<CatalogFilms />} />
         </Routes>
       </> 
     )

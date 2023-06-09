@@ -2,7 +2,7 @@ import React from 'react'
 import {Grid} from '@mui/material'
 
 
-const filmsPage = () => {
+const CatalogFilms = () => {
     return(
         <Grid container>
             <Grid item xs={3}>
@@ -21,4 +21,4 @@ const filmsPage = () => {
     )
 }
 
-export default filmsPage
+export default CatalogFilms

@@ -20,7 +20,8 @@ const PasswordField = ({handleChange}) => {
     return (
         <FormControl fullWidth>
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput 
+            <OutlinedInput
+                id="outlined-adornment-password"
                 className="input-auth-registration" 
                 type={showPassword ? "text" : "password"}
                 required 
