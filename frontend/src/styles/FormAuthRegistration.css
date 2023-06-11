@@ -45,3 +45,7 @@
     color: #2C2C2C!important;
     font-size: 24px!important;
   }
+
+.link-under-login {
+    text-decoration: none;
+}

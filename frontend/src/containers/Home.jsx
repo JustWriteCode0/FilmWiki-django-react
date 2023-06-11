@@ -23,7 +23,7 @@ const Home = () => {
                         Sign in
                     </Button>
                 </Link>
-                <Link className='signIn-signUp btn-signUp' to="/registration">
+                <Link className='signIn-signUp btn-signUp' to="/signup">
                     <Button className='buttons-index buttons-index-signUp'>
                         Sign up
                     </Button>

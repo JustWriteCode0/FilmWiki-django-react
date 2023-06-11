@@ -4,7 +4,10 @@ import { Routes, Route } from 'react-router-dom';
 import Login from "../containers/Login";
 import Signup from "../containers/Signup";
 import CatalogFilms from "../containers/CatalogFilms";
+import ResetPassword from "../containers/ResetPassword";
+import ResetPasswordConfirm from "../containers/ResetPasswordConfirm";
 import Home from "../containers/Home";
+import PrivateRoute from "../utils/PrivateRoute";
 
 
 const Header = () => {
@@ -17,11 +20,13 @@ const Header = () => {
             </Typography>
           </Toolbar>
         </AppBar>
+         
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Signup />} />
-          <Route path="/films" element={<CatalogFilms />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
         </Routes>
       </> 
     )
