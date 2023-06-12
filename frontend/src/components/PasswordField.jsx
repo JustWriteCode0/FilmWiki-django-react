@@ -8,9 +8,8 @@ const PasswordField = ({handleChange}) => {
     const [showPassword, setShowPassword] = useState(false)
 
     const handlePasswordField = (event) => {
-        const newValue = event.target.value
-        setPassword(newValue)
-        handleChange(newValue)
+        setPassword(event.target.value)
+        handleChange(event.target.value)
     }
 
     const handleShowPassword = () => {
@@ -21,6 +20,7 @@ const PasswordField = ({handleChange}) => {
         <FormControl fullWidth>
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput
+                name="password"
                 id="outlined-adornment-password"
                 className="input-auth-registration" 
                 type={showPassword ? "text" : "password"}

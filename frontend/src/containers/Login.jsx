@@ -1,42 +1,19 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useContext } from "react";
 import { Button, FormControl, TextField, Typography} from '@mui/material';
 import PasswordField from "../components/PasswordField";
 import { FormValdation } from "../components/ValidationForm";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import AuthContext from "../components/context/AuthContext";
 
 
 const Login = () => {
     const [form, setForm] = useState({'email': '', 'password': ''});
     const {email, password} = form;
-    const [token, setToken] = useState('')
     const [validation, setValidation] = useState('')
+    const {loginUser} = useContext(AuthContext)
 
-    
 
-
-    const handleLogin = (event) => {
-        event.preventDefault() 
-        const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-        const emailPattern = /\S+@\S+\.\S+/;
-        if (!emailPattern.test(email)) {
-            setValidation('Email incorrect')
-        } else {
-            setValidation('')
-            if (!passwordPattern.test(password)) {
-                setValidation('Password: 8-20 characters, 1 number, 1 letter, 1 symbol');
-            } else {
-                setValidation('')
-                console.log('yes')
-                axios.post('http://127.0.0.1:8000/auth/jwt/create', {email, password})
-                .then((response) => {
-                    setToken(response.data.access)  
-                }
-                )
-            }   
-        }      
-    }
-        
     const handleChangePassword = (passwordData) => {
         setForm({...form, password: passwordData})
     }
@@ -44,9 +21,10 @@ const Login = () => {
     return(
         <div className="form-auth-registration">
             <Typography className="form-layout">Login</Typography>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={loginUser}>
                 <FormControl fullWidth  >
                     <TextField
+                        name="email"
                         className="input-auth-registration"
                         required
                         label="Email"

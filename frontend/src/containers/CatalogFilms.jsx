@@ -1,5 +1,5 @@
-import React from 'react'
-import {Grid} from '@mui/material'
+import { React, useContext } from 'react'
+import { Grid } from '@mui/material'
 
 
 const CatalogFilms = () => {
