@@ -14,6 +14,7 @@
     "@types/redux-logger": "^3.0.9",
     "axios": "^1.4.0",
     "date-and-time": "^3.0.0",
+    "formik": "^2.4.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

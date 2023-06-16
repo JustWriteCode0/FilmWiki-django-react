@@ -3,7 +3,7 @@ import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-import CatalogFilms from "./containers/CatalogFilms";
+import Films from "./containers/Films";
 import ResetPassword from "./containers/ResetPassword";
 import ResetPasswordConfirm from "./containers/ResetPasswordConfirm";
 import Home from "./containers/Home";
@@ -22,7 +22,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route element={<PrivateRoutes />}>
-          <Route path="/films" element={<CatalogFilms />}/>
+          <Route path="/films" element={<Films />}/>
         </Route>          
       </Routes>
     </>

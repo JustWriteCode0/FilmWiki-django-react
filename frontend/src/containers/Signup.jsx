@@ -1,38 +1,42 @@
 import { React, useState } from "react";
-import { FormControl, TextField, Button, Typography } from "@mui/material";
-import axios from 'axios';
+import { FormControl, TextField, Button, Typography, IconButton, InputAdornment, OutlinedInput, InputLabel } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import axios from 'axios';    
 import "../styles/FormAuthRegistration.css"
-import PasswordField from "../components/PasswordField";
-import { FormValdation } from "../components/ValidationForm";
+import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
     const [form, setForm] = useState({'first_name': '', 'last_name': '', 'email': '', 'password': ''});
     const {first_name, last_name, email, password} = form;
-    const [validation, setValidation] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+    const [serverResponse, setServerResponse] = useState('')
+    const [errors, setErrors] = useState({email: '', password: ''})
     
+    const navigate = useNavigate()
     
     const handleRegistration = (event) => {
         event.preventDefault();
-        const passwordPattern = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-        const emailPattern = /\S+@\S+\.\S+/;
-        if (!emailPattern.test(email)) {
-            setValidation('Email incorect')
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            setErrors({email: "Email is not valid"})
+            console.log(errors.email)
         } else {
-            setValidation('')
-            if (!passwordPattern.test(password)) {
-                setValidation('Password: 8-20 characters, 1 number, 1 letter, 1 symbol')
-            } else {
+            setErrors({email: ''})
+            if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/.test(password)) {
+                setErrors({password: 'Password should contain 1 special charter 1 digit 1 lower case and upper case'})
+            } else {        
                 axios.post('http://127.0.0.1:8000/auth/users/', {first_name, last_name, email, password})
                 .then((response) => {
-                    console.log(response)
+                    if (response.status === 201) {
+                        navigate('/login')
+                    }
                 })
             }
         }
     }
-        
-    const handleChangePassword = (dataPassword) => {
-        setForm({...form, password: dataPassword})
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
     }
 
     return (
@@ -46,12 +50,30 @@ const Signup = () => {
                     <TextField className="input-auth-registration" required label="Last_name" value={form.last_name} onChange={(event) => setForm({...form, last_name: event.target.value})} /> 
                 </FormControl>
                 <FormControl fullWidth>
-                    <TextField className="input-auth-registration" required label="Email" value={form.email} onChange={(event) => setForm({...form, email: event.target.value})} /> 
+                    <TextField className="input-auth-registration" required label="Email" value={form.email} onChange={(event) => setForm({...form, email: event.target.value})} />
+                    {errors.email ? <Typography fontWeight={700} sx={{color: "#7A42A6",}}>{errors.email}</Typography> : ''}
                 </FormControl>
-                <PasswordField handleChange={handleChangePassword} />
-                <Typography fontWeight={700} sx={{
-                    color: "#7A42A6",
-                }}>{validation}</Typography>
+                <FormControl fullWidth>
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        name="password"
+                        className="input-auth-registration" 
+                        type={showPassword ? "text" : "password"}
+                        required 
+                        value={form.password}
+                        onChange={(event) => setForm({...form, password: event.target.value})} 
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={handleShowPassword}
+                                    edge="end">
+                                    {showPassword ? <Visibility /> : <VisibilityOff /> }
+                                </IconButton>
+                            </InputAdornment>}/>
+                            {errors.password ? <Typography  fontWeight={700} sx={{color: "#7A42A6",}}>{errors.password}</Typography> : ''}
+                </FormControl>
+                {serverResponse ? <Typography  fontWeight={700} sx={{color: "#7A42A6",}}>{serverResponse}</Typography> : ''}
                 <Button fullWidth className="submit-auth-registration" type="submit">submit</Button>
             </form>
         </div>

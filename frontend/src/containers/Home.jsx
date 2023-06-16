@@ -1,6 +1,7 @@
 import React from "react";
 import {Grid, Box, Typography, Button} from '@mui/material'
 import { Link } from 'react-router-dom'
+import '../styles/Home.css'
 
 
 const Home = () => {

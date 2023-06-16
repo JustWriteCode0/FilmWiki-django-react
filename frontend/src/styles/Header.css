@@ -1,0 +1,33 @@
+.brand {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    font-size: 38px !important;
+    text-decoration: none;
+    color: #2C2C2C;
+  }
+
+
+.nav-link {
+    font-family: 'Cuprum-SemiBold', sans-serif !important;
+    margin-left: 20px;
+    font-size: 24px !important;
+    text-decoration: none;
+    color: #2c2c2c;
+}
+
+@media (max-width: 480px) {
+    .nav-link {
+        font-size: 20px!important;
+        margin-left: 10px;
+    }
+    .brand {
+        font-size: 34px!important;
+    }
+}
+
+.login-logout-btn {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    margin-left: auto!important;
+    color: #b3b3b3;
+    text-decoration: none;
+    cursor: pointer;
+}

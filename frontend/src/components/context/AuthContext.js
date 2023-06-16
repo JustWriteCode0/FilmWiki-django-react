@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const AuthContext = createContext()
 
@@ -16,14 +16,13 @@ export const AuthProvider = ({ children }) => {
 
     const loginUser = async (e) => {
         // send user data on server and generate new jwt tokens
-        e.preventDefault()
-    
         const response = await fetch('http://127.0.0.1:8000/auth/jwt/create/', {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify({'email': e.target.email.value, 'password': e.target.password.value})
+           
+            body:JSON.stringify({'email': e.email, 'password': e.password})
         })
 
         const data = await response.json()
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // useEffect calls our updateToken method every four minutes if user is authenticated
+        // useEffect call our updateToken method every four minutes if user is authenticated
         const fourMinutes = 1000 * 60 * 4
 
         const interval = setInterval(() => {
@@ -91,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
     return(
         <AuthContext.Provider value={contextData}>
-            {loading ? null : children}
+            {children}
         </AuthContext.Provider>
     )   
 }
