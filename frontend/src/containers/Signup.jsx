@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { FormControl, TextField, Button, Typography, IconButton, InputAdornment, OutlinedInput, InputLabel, Input, Fab } from "@mui/material";
+import { FormControl, TextField, Button, Typography, IconButton, InputAdornment, OutlinedInput, InputLabel, Input, Fab, avatarClasses } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import axios from 'axios';    
 import "../styles/FormAuthRegistration.css"
@@ -12,7 +12,7 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [serverResponse, setServerResponse] = useState('')
     const [errors, setErrors] = useState({email: '', password: ''})
-    const [avatarPath, setAvatarPath] = useState('')
+    const [avatar, setAvatar] = useState('')
     
     const navigate = useNavigate()
     
@@ -26,7 +26,7 @@ const Signup = () => {
             if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/.test(password)) {
                 setErrors({password: 'Password should contain 1 special charter 1 digit 1 lower case and upper case'})
             } else {        
-                axios.post('http://127.0.0.1:8000/auth/users/', {first_name, last_name, email, password, avatarPath}, { 
+                axios.post('http://127.0.0.1:8000/auth/users/', {first_name, last_name, email, password, avatar}, { 
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }})
@@ -41,7 +41,7 @@ const Signup = () => {
 
     const handleImageChange = (event) => {
         console.log(event.target.value)
-        setAvatarPath(event.target.value)
+        setAvatar(event.target.value)
     }
 
     const handleShowPassword = () => {
@@ -93,7 +93,7 @@ const Signup = () => {
                         onChange={(event) => {handleImageChange(event)}}
                     />
                     <Button aria-label="add" component="span" className="choose-avatar-btn">
-                        {avatarPath ? avatarPath : 'Upload avatar'}
+                        {avatar ? avatar : 'Upload avatar'}
                     </Button>     
                 </label>
                 </div>

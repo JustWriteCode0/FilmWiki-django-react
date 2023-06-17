@@ -9,8 +9,9 @@ import "../styles/Header.css"
 
 
 const Header = () => {
-    const {user, logoutUser} = useContext(AuthContext)
+    const {user, logoutUser, authTokens} = useContext(AuthContext)
     const isSmallScreen = useMediaQuery('(max-width:450px)');
+  
 
     return(     
         <AppBar position="sticky" sx={{backgroundColor: '#7A42A6',}}>

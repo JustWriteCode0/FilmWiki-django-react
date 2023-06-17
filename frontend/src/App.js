@@ -8,6 +8,7 @@ import ResetPassword from "./containers/ResetPassword";
 import ResetPasswordConfirm from "./containers/ResetPasswordConfirm";
 import Home from "./containers/Home";
 import PrivateRoutes from './utils/PrivateRoutes';
+import Activate from './containers/Activate';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+        <Route path="/activate/:uid/:token" element={<Activate />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/films" element={<Films />}/>
         </Route>          
