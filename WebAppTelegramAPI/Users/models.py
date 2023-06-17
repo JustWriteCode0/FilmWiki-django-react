@@ -4,9 +4,10 @@ from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser):
-    email = models.EmailField(verbose_name="email", unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    avatar = models.ImageField(default="media/users/default.png", upload_to="media/users/") 
+    email = models.EmailField(verbose_name="email", unique=True)
     date_joined = models.DateField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateField(verbose_name="last login", auto_now=True)
     is_active = models.BooleanField(default=False)
@@ -14,7 +15,7 @@ class CustomUser(AbstractBaseUser):
     is_superuser = models.BooleanField(default=(False))
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "avatar"]
 
     objects = CustomUserManager()
 

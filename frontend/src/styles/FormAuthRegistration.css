@@ -49,3 +49,24 @@
 .link-under-login {
     text-decoration: none;
 }
+
+.avatar-btn-container {
+    text-align: left;
+}
+
+.choose-avatar-btn {
+   
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    box-shadow: 1px 2px 0px 1px #33013f;
+    color: #2C2C2C!important;
+    background: #7A42A6!important;
+    margin-bottom: 5px!important; 
+
+}
+
+.choose-avatar-btn:hover {
+    transition: 1s;
+    color: #000!important;
+    padding-left: 25px;
+    padding-right: 25px;
+}

@@ -5,32 +5,34 @@ import "../styles/Films.css"
 
 const Films = () => {
     return(
-        <Grid container justify="center" spacing={5}  className="films-container">
+        <Container maxWidth="lg" >
+        <Grid container spacing={5} className="films-container">
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
             <Grid item>
-              <Box className="box-test" sx={{ background: '#fff', }}>
+              <Box className="box-test" xs={2} sx={{ background: '#fff', position: 'relative', }}>
               </Box>
             </Grid>
-        </Grid>
+        </Grid>          
+        </Container>
     )
 }
 
