@@ -35,7 +35,7 @@ const HeaderMenu = () => {
                 'arialabelledby': 'menu-button',
               }}
               onClose={handleMenuClose}>
-                <MenuItem onClick={handleMenuClose}><Link to="/films" className="nav-link">rating</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to="/films-catalog" className="nav-link">rating</Link></MenuItem>
                 <MenuItem onClick={handleMenuClose}>films</MenuItem>
                 <MenuItem onClick={handleMenuClose}>films</MenuItem>  
             </Menu>

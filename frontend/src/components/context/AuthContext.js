@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
     const loginUser = async (e) => {
         // send user data on server and generate new jwt tokens
+        console.log('updated')
         const response = await fetch('http://127.0.0.1:8000/auth/jwt/create/', {
             method:'POST',
             headers:{
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
                 setAuthTokens(data)
                 setUser(jwt_decode(data.access)) // decode access token in which the user information was encoded and save
                 localStorage.setItem('authTokens', JSON.stringify(data)) // set auth tokens to local storage for use in any part of our app
-                navigate('/films')
+                navigate('/films-catalog')
             } else {
                 alert('something wrong')
             }    

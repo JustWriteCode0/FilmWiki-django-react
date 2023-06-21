@@ -6,7 +6,7 @@ from .managers import CustomUserManager
 class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    avatar = models.ImageField(default="media/users/default.png", upload_to="media/users/") 
+    avatar = models.ImageField(default="media/users/default.png", upload_to="media/users/", blank=True) 
     email = models.EmailField(verbose_name="email", unique=True)
     date_joined = models.DateField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateField(verbose_name="last login", auto_now=True)

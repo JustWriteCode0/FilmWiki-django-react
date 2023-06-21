@@ -3,9 +3,11 @@ import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-import Films from "./containers/Films";
+import FilmsCatalog from "./containers/FilmsCatalog";
+import Film from "./containers/Film"
 import ResetPassword from "./containers/ResetPassword";
 import ResetPasswordConfirm from "./containers/ResetPasswordConfirm";
+import UserProfile from './containers/UserProfile';
 import Home from "./containers/Home";
 import PrivateRoutes from './utils/PrivateRoutes';
 import Activate from './containers/Activate';
@@ -24,8 +26,10 @@ function App() {
         <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route path="/activate/:uid/:token" element={<Activate />} />
         <Route element={<PrivateRoutes />}>
-          <Route path="/films" element={<Films />}/>
-        </Route>          
+          <Route path="/films-catalog" element={<FilmsCatalog />}/>
+        </Route>  
+        <Route path="/film/:name" element={<Film />} />
+        <Route path="/profile" element={<UserProfile/>}/>
       </Routes>
     </>
   );

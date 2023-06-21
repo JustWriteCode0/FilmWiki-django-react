@@ -22,14 +22,16 @@ const Header = () => {
               <HeaderMenu /> 
             ) : (
               <Stack spacing={2} direction="row">
-                <Link to="/films" className="nav-link">films</Link>
-                <Link to="/films" className="nav-link">popular</Link>
-                <Link to="/films" className="nav-link">rating</Link>
+                <Link to="/films-catalog" className="nav-link">films</Link>
+                <Link to="/films-catalog" className="nav-link">popular</Link>
+                <Link to="/films-catalog" className="nav-link">rating</Link>
               </Stack>
             )}
             {user ? (
-              <Typography onClick={logoutUser}  className="login-logout-btn">Logout</Typography>
-              
+              <>
+                <Typography onClick={logoutUser}  className="login-logout-btn">Logout</Typography>
+                <UserAvatar/>
+              </>
             ): (
                 <Link to="/login" sx={{ marginLeft: "auto", }} className="login-logout-btn">
                   Login
