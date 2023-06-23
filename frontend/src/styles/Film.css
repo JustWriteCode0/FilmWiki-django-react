@@ -1,0 +1,34 @@
+.loading-film {
+    margin: auto;
+    color: #7A42A6;
+}
+
+.loading-container {
+    text-align: center;
+    height: 95vh;
+}
+
+.animated-dots {
+    margin-top: 35vh;
+    color: #7A42A6;
+    font-size: 150px!important;
+    display: inline-block;
+    animation: fade 1.5s infinite alternate;
+  }
+  
+  @keyframes fade {
+    0%, 100% {
+      opacity: 0;
+    }
+    
+    50% {
+      opacity: 1;
+    }
+  }
+  
+
+.film-name {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    color: #7A42A6;
+    font-size: 24px!important;
+}

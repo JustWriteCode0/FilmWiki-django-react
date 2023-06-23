@@ -10,19 +10,21 @@ const Activate = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-       axios.post('http://127.0.0.1:8000/auth/users/activation/', {uid: url[2], token: url[3]})
+        console.log('call')
+        axios.post('http://127.0.0.1:8000/auth/users/activation/', {uid: url[2], token: url[3]})
         .then((response) => {
             if (response.status === 200) {
                 navigate('/')
             }
-        }) .catch(function (error){
+        })
+        .catch(function (error){
             if (error.response) {
                 setExeption(error.request.response)
             } else {
                 setExeption(error.message)
             }
         })
-    });
+    }, []);
         
     
     return(

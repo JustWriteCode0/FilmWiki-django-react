@@ -19,7 +19,6 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         if avatar:
             user.avatar = avatar
-        print(user, 'dd ' , password)
         user.save(using=self._db)
         return user
     

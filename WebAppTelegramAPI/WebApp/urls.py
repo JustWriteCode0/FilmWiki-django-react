@@ -1,12 +1,11 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import FilmApi, CategoryApi
+from .views import FilmViewSet, CategoryViewSet
 
 routerFilm = routers.DefaultRouter()
-routerFilm.register('films', FilmApi)
-routerFilm.register('film/<str:film_name>', FilmApi)
+routerFilm.register(r'films', FilmViewSet, basename='films')
 routerCategory = routers.SimpleRouter()
-routerCategory.register('category', CategoryApi)
+routerCategory.register('category', CategoryViewSet)
 
 urlpatterns = [
     path('', include(routerFilm.urls)),
