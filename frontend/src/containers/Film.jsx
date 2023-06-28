@@ -31,8 +31,9 @@ const Film = () => {
 
     return (
       <Grid container sx={{ marginTop: '15px' }}>
-        <Grid item>
-          <Typography className="film-name">{film.film_name}</Typography>
+        <Grid item xl={2}>
+        <img src="https://m.media-amazon.com/images/M/MV5BYTk3MDljOWQtNGI2My00OTEzLTlhYjQtOTQ4ODM2MzUwY2IwXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_FMjpg_UX1000_.jpg" className="box-test" alt="" />
+          <Typography className="film-name">An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</Typography>
         </Grid>
       </Grid>
     );
