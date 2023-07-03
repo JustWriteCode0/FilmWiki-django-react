@@ -25,10 +25,11 @@ class Actor(models.Model):
 
 
 class Film(models.Model):
-    film_name = models.CharField(max_length=150)
+    film_name = models.CharField(max_length=150, unique=True)
+    film_poster = models.ImageField() 
     slug_film_name = models.SlugField(max_length=150, unique=True, blank=True)
     author = models.CharField(max_length=150)
-    actors = models.ForeignKey(Actor, on_delete=models.CASCADE)
+    actors = models.ManyToManyField(Actor)
     describe = models.TextField(null=True, blank=True)
     box_office = models.IntegerField()
     star_raiting = models.IntegerField(null=True, blank=True)

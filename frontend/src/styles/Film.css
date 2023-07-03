@@ -32,3 +32,7 @@
     color: #7A42A6;
     font-size: 24px!important;
 }
+
+.carousel-images {
+  justify-content: center;
+}

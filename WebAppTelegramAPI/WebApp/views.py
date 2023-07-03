@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import FilmSerializer, FilmCategoriesSerializer, ActorSerializer, FilmImageSerializer
+from .serializers import FilmSerializer, FilmCategoriesSerializer, ActorSerializer, FilmImageSerializer, FilmCatalogSerializer
 from .models import Film, FilmCategories, Actor, FilmImage
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly  
 from .permissions import CustomFilmPermission
@@ -10,10 +10,13 @@ from rest_framework.response import Response
 
 class FilmViewSet(viewsets.ModelViewSet):
     queryset = Film.objects.all()
-    serializer_class = FilmSerializer
     permission_classes = [CustomFilmPermission,]
     lookup_field='slug_film_name'
 
+    def get_serializer_class(self):
+        if self.action == 'retrieve':  # Check if the action is for retrieving a single film
+            return FilmSerializer
+        return FilmCatalogSerializer
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = FilmCategories.objects.all()
