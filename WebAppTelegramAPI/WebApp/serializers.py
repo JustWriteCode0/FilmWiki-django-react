@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FilmCategories, Film, Actor, FilmImage
+from .models import FilmCategories, Film, Actor, FilmImage, FilmReview
 
 
 
@@ -8,16 +8,19 @@ class FilmImageSerializer(serializers.ModelSerializer):
         model = FilmImage
         fields = ['id', 'film', 'image']
 
+
 class FilmSerializer(serializers.ModelSerializer):
     images = FilmImageSerializer(many=True)
     class Meta:
         model = Film
-        fields = ['id', 'film_name', 'film_poster', 'slug_film_name',  'author', 'actors', 'describe', 'star_raiting', 'box_office', 'category', 'images']
+        fields = ['id', 'film_name', 'film_poster', 'slug_film_name', 'country', 'release_date', 'author', 'actors', 'describe', 'rating_imdb', 'box_office', 'category', 'images']
+
 
 class FilmCatalogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Film
         fields = ['id', 'film_name', 'film_poster', 'slug_film_name']
+
 
 class FilmCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +34,7 @@ class ActorSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'photo', 'date_of_birth']
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FilmReview
+        exclude = ['user']
