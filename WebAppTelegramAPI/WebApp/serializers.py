@@ -9,6 +9,12 @@ class FilmImageSerializer(serializers.ModelSerializer):
         fields = ['id', 'film', 'image']
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FilmReview
+        exclude = ['id', 'user', 'film']
+
+
 class FilmSerializer(serializers.ModelSerializer):
     images = FilmImageSerializer(many=True)
     class Meta:
@@ -34,7 +40,4 @@ class ActorSerializer(serializers.ModelSerializer):
         fields = ['id', 'first_name', 'last_name', 'photo', 'date_of_birth']
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FilmReview
-        exclude = ['user']
+

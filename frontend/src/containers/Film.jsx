@@ -11,9 +11,10 @@ import AuthContext from '../components/context/AuthContext'
 
 const Film = () => {
     const [film, setFilm] = useState(null);
-    const [rating, setRating] = useState(0);
+    const [star_rating, setRating] = useState(0);
     const [review, setReview] = useState('');
-    const {authTokens} = useContext(AuthContext)
+    const [allReviews, setAllReviews] = useState([])
+    const {authTokens, user} = useContext(AuthContext)
     const url = window.location.pathname.split('/');
 
     const navigate = useNavigate()
@@ -27,27 +28,36 @@ const Film = () => {
       .catch((error) => {
         console.error('Error fetching film:', error);
       });
+
+      axios.get(`http://127.0.0.1:8000/api/v1/films/${url[2]}/reviews`, {
+        headers : {
+        "Authorization": `Bearer ${authTokens.access}`,
+      }})
+      .then((response) => {
+        console.log(response, 'huhuhu')
+        setAllReviews(response.data)
+      })
     }, []);
 
     const handleChangeRating = (value) => {
       setRating(value * 2)
     };
 
-    const handleSubmitRating = (event, rating) => {
+    const handleSubmitRating = (event) => {
       event.preventDefault()
       if (authTokens === null) {
+        console.log('login')
         navigate('/login')
       } else {
-        console.log(rating, review)
-        axios.post(`http://127.0.0.1:8000/api/v1/films/${url[2]}/rating/`, {rating, review}, { 
+        console.log('ubuntus')
+        const user_id = user.user_id
+        axios.post(`http://127.0.0.1:8000/api/v1/films/${url[2]}/reviews`, {star_rating, review, user_id}, { 
           headers: {
-              "Authenticate": `Bearer ${authTokens.access}`,
-          }})
-        
+              "Authorization": `Bearer ${authTokens.access}`,
+          }}) 
       }
-      
     }
-  
+
     if (film === null) {
       return (
         <div className="loading-container">
@@ -55,56 +65,52 @@ const Film = () => {
         </div>
       )
     }
-
+    console.log(star_rating)
     return (
-      <Grid container sx={{ marginTop: '15px' }}>
-        <Grid item xl={4} md={4} sx={{ paddingLeft: '15px', }}>
-           {/* Film poster and name */}
-          <img src={film.film_poster} draggable="false" className="film-poster" alt="" />
-          <Typography className="film-name">{ film.film_name }</Typography>
+      <Grid container sx={{ marginTop: '15px' }} >
+        <Grid item container xs={4} className="grid-container">
+          <Grid item container xs={12} className="poster-container">
+            <img src={film.film_poster} className="poster-image" />
+          </Grid>
+          <Grid item container xs={12} className="rating-container">
+            <Grid item xs={12}>
+              <Rate allowHalf defaultValue={film.rating_imdb / 2} onChange={handleChangeRating} />
+            </Grid>
+            <Grid item xs={12}>
+              <form onSubmit={handleSubmitRating}>
+                {star_rating > 0 ? <TextField required label="your review" className="film-review-field" onChange={(event) => setReview(event.target.value)} /> : ''}
+                {star_rating > 0 ? <Button className="submit-rating-btn" variant="filled" type="submit">submit</Button> : ''}
+              </form>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xl={4} md={8}>
-          {/* Film carousel with images from film */}
-          <Carousel className="carousel" >
-            {film.images.map(film => {
-              return (
-                <div key={film.id}>
-                  <img src={film.image} alt="" draggable="false"  className="carousel-image" />
-                </div>
-              )
-            })}
-          </Carousel>
-        </Grid>
-        <Grid item xl={4} md={6}>
-          {/* Recomended and similar films */}
-
-        </Grid>
-
-        <Grid item xl={4} md={6}>
-          {/* Information about film */}
-          <div className="film-info-container">
-            
-            <Rate allowHalf defaultValue={film.star_rating / 2} onChange={handleChangeRating} />
-            <form onSubmit={handleSubmitRating}>
-              {rating > 0 ? <TextField required label="your review" className="film-review-field" onChange={(event) => setReview(event.target.value)} /> : ''}
-              {rating > 0 ? <Button className="submit-rating-btn" variant="filled" type="submit">submit</Button> : ''}
-            </form>
-            
-            <Typography className="film-info">category - {film.category}</Typography>
-            <Typography className="film-info film-box-office">box office - ${film.box_office}</Typography>
-            <Typography className="film-info">author - {film.author}</Typography>
-            <Typography className="film-info">actors - {film.actors}</Typography>
-          </div>
-        </Grid>
-        <Grid item xl={4} md={6}>
-          {/* Block with film describe, release data, country */}
+        <Grid item container xs={6} className="grid-container">
+          <Grid item container xs={12} className="carousel-container">
+            <Carousel className="carousel">
+              {film.images.map(film => {
+                return (
+                  <div key={film.id}>
+                    <img src={film.image} draggable="false"  className="carousel-image" />
+                  </div>
+                )
+              })}
+            </Carousel>
+          </Grid>
+          <Grid item container xs={12} className="information-container">
             <Typography className="film-describe">{film.describe}</Typography>
             <div className="additionaly-info-container">
               <Typography className="film-country">{film.country}</Typography>
               <Typography className="film-release-date">{film.release_date}</Typography>
             </div>
+          </Grid>
         </Grid>
-        <Grid item xl={4} md={6}>
+        <Grid item xs={2} className="recomendations-container">
+          <div className="recomended-film">
+              <img src={film.film_poster} className="recomended-film-image"/>
+              <img src={film.film_poster} className="recomended-film-image"/>
+              <img src={film.film_poster} className="recomended-film-image"/>
+              <img src={film.film_poster} className="recomended-film-image"/>
+          </div>
         </Grid>
       </Grid>
     );
