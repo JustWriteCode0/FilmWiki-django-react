@@ -4,10 +4,12 @@ from .serializers import FilmSerializer, FilmCategoriesSerializer, ActorSerializ
 from .models import Film, FilmCategories, Actor, FilmImage, FilmReview
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly  
 from .permissions import CustomFilmPermission
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.generics import ListAPIView, CreateAPIView
+
 
 
 class FilmViewSet(viewsets.ModelViewSet):
@@ -38,20 +40,22 @@ class ActorViewSet(viewsets.ModelViewSet):
     permission_classes = [CustomFilmPermission,]
 
 
-class FilmReviewApiView(APIView):
-    def post(self, request, slug):
+
+class FilmReviewListView(ListAPIView):
+    queryset = FilmReview.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return self.queryset.filter(film__slug_film_name=slug)
+
+class FilmReviewCreateView(CreateAPIView):
+    queryset = FilmReview.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+    def perform_create(self, serializer):
+        slug = self.kwargs['slug']
         film = Film.objects.get(slug_film_name=slug)
-        print(film)
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(film=film)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def get(self, request, slug):
-        film = Film.objects.get(slug_film_name=slug)
-        print(film.id)
-        reviews = FilmReview.objects.filter(film=film.id)
-        serializer = ReviewSerializer(data=reviews, many=True)
-        serializer.is_valid()
-        return Response(serializer.data)
+        serializer.save(film=film)

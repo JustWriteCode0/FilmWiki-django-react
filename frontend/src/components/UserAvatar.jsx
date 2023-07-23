@@ -1,12 +1,14 @@
 import {React, useState, useContext, useEffect} from "react";
 import AuthContext from "./context/AuthContext";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const UserAvatar = () => {
     const {user, authTokens} = useContext(AuthContext)
     const [avatar, setAvatar] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
         if (authTokens.access) {
@@ -19,12 +21,11 @@ const UserAvatar = () => {
                 setAvatar(response.data.avatar)
             })
         } else {
-            console.log('nothing')
+            navigate('/login')
         }
     }, [authTokens.access])
     console.log(authTokens)
     
-
     return(
         <Link to="/profile">
             <img src={avatar} alt="" className="user-avatar" />

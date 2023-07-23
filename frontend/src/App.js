@@ -11,7 +11,7 @@ import UserProfile from './containers/UserProfile';
 import Home from "./containers/Home";
 import PrivateRoutes from './utils/PrivateRoutes';
 import Activate from './containers/Activate';
-import GridTest from './components/GridTest';
+
 
 function App() {
   return (
@@ -31,7 +31,6 @@ function App() {
         </Route>  
         <Route path="/film/:name" element={<Film />} />
         <Route path="/profile" element={<UserProfile/>}/>
-        <Route path="/test" element={<GridTest />} />
       </Routes>
     </>
   );
