@@ -15,6 +15,11 @@
     margin-bottom: 30px!important;
 }
 
+.catalog-film-name {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    font-size: 16px !important;
+}
+
 @media (max-width: 2100px) {
     .box-test {
         width: 240px;

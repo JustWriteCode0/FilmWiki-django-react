@@ -1,102 +1,128 @@
-.poster-image {
-  width: 250px;
+.film-header {
+    margin-left: 30px;
 }
 
-.ant-rate-star {
-  color: #7A42A6!important;
-  font-size: 28px;
+.film-poster {
+    width: 280px;
 }
 
-
-.ant-rate .ant-rate-star-first,
-.ant-rate .ant-rate-star-second {
-  color: #3d3d3d;
+.film-name {
+    font-family: 'Cuprum-BoldItalic', sans-serif!important;
+    font-weight: bold!important;
+    font-size: 24px!important;
 }
 
-.film-review-field {
-  margin-top: 10px!important;
-  width: 300px;
+.carousel {
+    text-align: center;
+    margin: 0 auto!important;
+    width: calc(100% - 50px);
+    max-width: 707px;
 }
 
-.submit-rating-btn {
-  margin-top: 10px!important;
-  margin-bottom: 15px!important;
-  font-family: 'Cuprum-BoldItalic', sans-serif !important;
-  background-color: #7A42A6!important;
-  color: #2C2C2C!important;
-  font-size: 24px!important;
+.film-info-container {
+    color: #b3b3b3;
+    margin-left: 30px;
 }
 
-.carousel-image {
-  height: 475px;
-  width: 855px;
+.imdb-rating {
+    font-size:28px!important;
 }
 
-.recomended-film-image {
-  margin-top: 10px;
-  height: 350px;
-  width: 220px;
-}
-
-.recomended-film {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
+.film-info {
+    font-family: 'Cuprum-BoldItalic', sans-serif!important;
+    font-weight: bold!important;
+    font-size: 22px !important;
+    margin-top: 5px!important;
 }
 
 .film-describe {
-  font-family: 'Cuprum-SemiBold', sans-serif !important;
-  font-size: 24px!important;
-  margin: auto!important;
-  width: 745px;
-  color: #e3e3e3;
+    font-family: 'Cuprum-SemiBold', sans-serif!important;
+    font-size: 24px!important;
+    margin-top: 5vw!important;
+    margin-left: 30px!important;
+    margin-right: 30px!important;
 }
 
-
-
-.film-name {
-  font-family: 'Cuprum-SemiBold', sans-serif !important;
-  font-size: 24px!important;
+.additional-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-left: 30px;
+    margin-right: 30px;      
 }
 
-.review-container {
-  width: 30%;
-  margin: 15px;
-  padding: 5px;
-  border-radius: 5px;
-  background: #444444;
+.film-country, .film-release-date {
+    font-family: 'Cuprum-SemiBold', sans-serif !important;
+    font-size: 20px!important;
+}
+
+.review-container  {
+    width: calc(100% - 10vw);
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.form-review {
+    width: 100%;
+    display: inline-flex;
+}
+
+.review-field {
+    border: solid 1.5px #b3b3b3!important;
+    margin-bottom: 40px;
+    border-radius: 5px;
+}
+
+.submit-review-btn {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    background-color: #7A42A6!important;
+    color: #2C2C2C!important;
+    font-size: 24px!important;
+    width: 15%;
+}
+
+.user-reviews {
+    background: #3b3b3b!important;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
 }
 
 .review-text {
-  font-family: 'Cuprum-SemiBold', sans-serif !important;
-
-  margin-top: 5px;
-  font-size: 16px;
-  color: #e3e3e3;
-  width: 300px;
+    padding: 5px;
+    font-weight: bold!important;
 }
 
-.review-rating .ant-rate-star {
-  font-size: 16px!important;
+.pagination-container {
+    text-align: center;
 }
 
-.country-data-information { 
-  margin: auto;
-  margin-top: 30px;
-  color: #e3e3e3;
-  width: 745px;
+.more-reviews-btn {
+    margin-top: 15px!important;
+    width: 150px;
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    color: #2C2C2C!important;
+    padding: 5px;
+    background-color: #7A42A6!important;
+}  
+
+@media (max-width: 900px) {
+    .film-header {
+        margin: 0;
+        text-align: center;
+    }
 }
 
-.film-country {
-  font-size: 24px!important;
-  font-family: 'Cuprum-SemiBold', sans-serif !important;
-}
-
-.film-release-date {
-  font-size: 24px!important;
-  font-family: 'Cuprum-SemiBold', sans-serif !important;
-  flex: 1;
-  text-align: right;
+@media (max-width: 620px) {
+    .submit-review-btn {
+        font-size: 16px!important;
+    }
+    .film-describe {
+        font-size: 18px!important;
+    }
+    .film-info {
+        font-size: 18px!important;
+    }
+    .imdb-rating {
+        font-size: 20px!important;
+    }
 }

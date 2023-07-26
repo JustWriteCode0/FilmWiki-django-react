@@ -25,7 +25,7 @@ const FilmsCatalog = () => {
               <Link to={`/film/${film.slug_film_name}`}>
                 <img src={film.film_poster} className="box-test" alt="" />
               </Link>
-              <Typography>{film.film_name}</Typography>
+              <Typography className="catalog-film-name">{film.film_name}</Typography>
             </Grid>
           )
         })} 

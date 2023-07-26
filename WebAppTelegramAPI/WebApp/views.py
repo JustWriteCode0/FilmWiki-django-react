@@ -1,15 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import FilmSerializer, FilmCategoriesSerializer, ActorSerializer, FilmImageSerializer, FilmCatalogSerializer, ReviewSerializer
+from .serializers import FilmSerializer, FilmCategoriesSerializer, FilmImageSerializer, FilmCatalogSerializer, ReviewSerializer
 from .models import Film, FilmCategories, Actor, FilmImage, FilmReview
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly  
 from .permissions import CustomFilmPermission
-from rest_framework.decorators import action, permission_classes
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
+from .paginations import ReviewsPagination
 from rest_framework.generics import ListAPIView, CreateAPIView
-
 
 
 class FilmViewSet(viewsets.ModelViewSet):
@@ -21,6 +17,7 @@ class FilmViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':  # Check if the action is for retrieving a single film
             return FilmSerializer
         return FilmCatalogSerializer
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = FilmCategories.objects.all()
@@ -34,17 +31,11 @@ class FilmImagesViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser,]
 
 
-class ActorViewSet(viewsets.ModelViewSet):
-    queryset = Actor.objects.all()
-    serializer_class = ActorSerializer
-    permission_classes = [CustomFilmPermission,]
-
-
-
 class FilmReviewListView(ListAPIView):
-    queryset = FilmReview.objects.all()
+    queryset = FilmReview.objects.all().order_by('-id')
     serializer_class = ReviewSerializer
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    pagination_class = ReviewsPagination
 
     def get_queryset(self):
         slug = self.kwargs['slug']
@@ -53,9 +44,9 @@ class FilmReviewListView(ListAPIView):
 class FilmReviewCreateView(CreateAPIView):
     queryset = FilmReview.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [IsAuthenticated,]
 
     def perform_create(self, serializer):
         slug = self.kwargs['slug']
         film = Film.objects.get(slug_film_name=slug)
-        serializer.save(film=film)
+        serializer.save(film=film, user=self.request.user)

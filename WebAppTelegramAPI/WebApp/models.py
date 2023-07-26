@@ -57,7 +57,7 @@ class Film(models.Model):
 
 class FilmReview(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     star_rating = models.PositiveIntegerField(validators=[MaxValueValidator(10)])
     review = models.TextField()
 
@@ -76,4 +76,3 @@ class FilmImage(models.Model):
 
     class Meta:
         db_table = "film_images"
-    

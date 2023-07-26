@@ -33,6 +33,7 @@
 }
 
 .user-avatar {
+    margin-left: 15px;
     height: 40px;
     width: 40px;
     border-radius: 50%;

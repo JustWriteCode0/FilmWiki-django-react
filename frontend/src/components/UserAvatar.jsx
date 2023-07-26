@@ -18,6 +18,7 @@ const UserAvatar = () => {
                 'Authorization': `Bearer ${authTokens.access}`
             }})
             .then((response) => {
+                console.log(response.data, 'mac tra')
                 setAvatar(response.data.avatar)
             })
         } else {

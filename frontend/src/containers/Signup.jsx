@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Signup = () => {
-    const [form, setForm] = useState({'first_name': '', 'last_name': '', 'email': '', 'password': ''});
+    const [form, setForm] = useState({'first_name': '', 'last_name': '', 'email': '', 'password': '', 'avatar': ''});
     const {first_name, last_name, email, password} = form;
     const [showPassword, setShowPassword] = useState(false)
     const [serverResponse, setServerResponse] = useState('')
@@ -15,7 +15,7 @@ const Signup = () => {
     const [avatar, setAvatar] = useState('')
     
     const navigate = useNavigate()
-    
+    console.log(form)
     const handleRegistration = (event) => {
         event.preventDefault();
         if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -25,8 +25,8 @@ const Signup = () => {
             setErrors({email: ''})
             if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/.test(password)) {
                 setErrors({password: 'Password should contain 1 special charter 1 digit 1 lower case and upper case'})
-            } else {        
-                axios.post('http://127.0.0.1:8000/auth/users/', {first_name, last_name, email, password, avatar}, { 
+            } else {
+                axios.post('http://127.0.0.1:8000/auth/users/', form, { 
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }})
@@ -40,8 +40,9 @@ const Signup = () => {
     }
 
     const handleImageChange = (event) => {
-        console.log(event.target.value)
-        setAvatar(event.target.value)
+        let newForm = { ...form };
+        newForm['avatar'] = event.target.files[0];
+        setForm(newForm)
     }
 
     const handleShowPassword = () => {
@@ -93,7 +94,7 @@ const Signup = () => {
                         onChange={(event) => {handleImageChange(event)}}
                     />
                     <Button aria-label="add" component="span" className="choose-avatar-btn">
-                        {avatar ? avatar : 'Upload avatar'}
+                        {form.avatar ? form.avatar.name : 'Upload avatar'}
                     </Button>     
                 </label>
                 </div>
