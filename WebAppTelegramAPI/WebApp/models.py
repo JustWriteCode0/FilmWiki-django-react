@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework import serializers
 from django.utils.text import slugify
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from Users.models import CustomUser
 
 class FilmCategories(models.Model):
@@ -38,8 +38,8 @@ class Film(models.Model):
     actors = models.ManyToManyField(Actor)
     describe = models.TextField(null=True, blank=True)
     box_office = models.IntegerField()
-    rating_imdb = models.PositiveIntegerField(null=True, blank=True)
-    category = models.ForeignKey(FilmCategories, on_delete=models.CASCADE)
+    rating_imdb = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
+    category = models.ManyToManyField(FilmCategories)
 
     def __str__(self):
         return self.film_name   
@@ -58,7 +58,7 @@ class Film(models.Model):
 class FilmReview(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    star_rating = models.PositiveIntegerField(validators=[MaxValueValidator(10)])
+    star_rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     review = models.TextField()
 
     def __str__(self):
@@ -66,6 +66,7 @@ class FilmReview(models.Model):
 
     class Meta:
         db_table = "film_reviews"
+
 
 class FilmImage(models.Model):
     film = models.ForeignKey(Film, related_name='images', on_delete=models.CASCADE)

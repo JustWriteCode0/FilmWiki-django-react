@@ -1,36 +1,36 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { Grid, Typography, Button, TextField, Paper, Box } from "@mui/material";
-import '../styles/Film.css'
-import {Carousel} from "antd";
-import { Rate } from 'antd';
+import { Rate, Carousel } from 'antd';
+import axios from "axios";
 import AuthContext from '../components/context/AuthContext'
+import '../styles/Film.css'
 
 
 const Film = () => {
     const [film, setFilm] = useState(null);
     const [star_rating, setRating] = useState(0);
     const [review, setReview] = useState('');
-    const [allReviews, setAllReviews] = useState({'data': [], 'next': '', 'pervious': ''})
+    const [allReviews, setAllReviews] = useState({'data': [], 'next': ''})
     const {authTokens, user} = useContext(AuthContext)
 
-    const url = window.location.pathname.split('/');
+    const { slug } = useParams()
     const navigate = useNavigate()
 
 
     useEffect(() => {
-      axios.get(`http://127.0.0.1:8000/api/v1/films/${url[2]}/`)
+      axios.get(`http://127.0.0.1:8000/api/v1/films/${slug}/`)
       .then((response) => {
-        console.log(response.data)
+        {/* Request film by slug in url */}
         setFilm(response.data);
       })
       .catch((error) => {
         console.error('Error fetching film:', error);
       });
       
-      axios.get(`http://127.0.0.1:8000/api/v1/films/${url[2]}/reviews`)
+      axios.get(`http://127.0.0.1:8000/api/v1/films/${slug}/reviews`)
       .then((response) => {
+        {/* Request reviews by film slug name */}
         setAllReviews({
           data: response.data.results,
           next: response.data.next,
@@ -38,7 +38,9 @@ const Film = () => {
       })
     }, []);
 
+
     const moreReview = () => {
+      {/* Request more reviews if user click button */}
       axios.get(allReviews.next)
       .then((response) => {
         setAllReviews({
@@ -54,15 +56,19 @@ const Film = () => {
     };
 
     const handleSubmitRating = (event) => {
+      {/* If user is authenticated - post request for add review, else - navigate to login page */}
       event.preventDefault()
-      if (authTokens === null) {
-        navigate('/login')
-      } else {
-        axios.post(`http://127.0.0.1:8000/api/v1/films/${url[2]}/reviews/create/`, {star_rating, review}, { 
+      if (star_rating > 0) {
+        if (authTokens === null) {
+          navigate('/login')
+        } else {
+          axios.post(`http://127.0.0.1:8000/api/v1/films/${slug}/reviews/create/`, {star_rating, review}, { 
           headers: {
               "Authorization": `Bearer ${authTokens.access}`,
           }}) 
+        }
       }
+      
     }
 
     if (film === null) {
@@ -72,7 +78,6 @@ const Film = () => {
         </div>
       )
     }
-    console.log(allReviews.star_rating, 'asudf8usad8f')
     return (
       <Grid container spacing={2} sx={{ paddingTop: "15px" }}>
         <Grid item lg={3} md={4} xs={12}>
@@ -92,21 +97,17 @@ const Film = () => {
               )
             })}
           </Carousel>
-          <Box>
-
-          </Box>
         </Grid>
         <Grid item lg={2} md={4} xs={12}>
           {/* Film info */}
           <Box className="film-info-container">
             <Rate allowHalf defaultValue={film.rating_imdb / 2} disabled className="imdb-rating" /> 
-            <Typography className="film-info">{film.category}</Typography>
-            <Typography className="film-info">{film.box_office}$</Typography>
-            <Typography className="film-info">{film.author}</Typography>
-            <Typography className="film-info">{film.actors}</Typography>
+            <Typography className="film-info">category: {film.category}</Typography>
+            <Typography className="film-info">Box office: {film.box_office}$</Typography>
+            <Typography className="film-info">Author: {film.author}</Typography>
+            <Typography className="film-info">Actors: {film.actors}</Typography>
           </Box>
         </Grid>
-
         <Grid item lg={12} md={8} xs={12}>
           {/* Describe */}
           <Typography className="film-describe">{film.describe}</Typography>
@@ -114,7 +115,6 @@ const Film = () => {
             <Typography className="film-release-date">{film.release_date}</Typography>
             <Typography className="film-country">{film.country}</Typography>
           </Box>
-          
         </Grid>
         <Box className="review-container">
           {/* Review form and all reviews */}
@@ -127,18 +127,18 @@ const Film = () => {
             </form>
           {allReviews.data.map((review, index) => (
             <Paper className="user-reviews" key={index}>
+              <Link to={`/profile/${review.user_id}`}><Typography>{review.first_name}</Typography></Link>
               <Rate allowHalf defaultValue={review.star_rating / 2} disabled className="review-rating" />
               <Typography className="review-text">{review.review}</Typography>
             </Paper>
           ))}
           <Box className="pagination-container">
-           {allReviews.next ? <Button className="more-reviews-btn" onClick={moreReview}>More...</Button> : ''} 
+            {/* All reviews with pagination */}
+            {allReviews.next ? <Button className="more-reviews-btn" onClick={moreReview}>More...</Button> : ''} 
           </Box>
-          
         </Box>
       </Grid>
     );
   };
   
-
 export default Film

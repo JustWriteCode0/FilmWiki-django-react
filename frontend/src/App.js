@@ -29,8 +29,8 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/films-catalog" element={<FilmsCatalog />}/>
         </Route>  
-        <Route path="/film/:name" element={<Film />} />
-        <Route path="/profile" element={<UserProfile/>}/>
+        <Route path="/film/:slug" element={<Film />} />
+        <Route path="/profile/:id/" element={<UserProfile/>}/>
       </Routes>
     </>
   );

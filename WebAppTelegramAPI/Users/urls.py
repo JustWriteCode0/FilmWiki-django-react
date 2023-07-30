@@ -1,6 +1,11 @@
-from django.urls import path
-from .views import CustomUserAPIView
+from django.urls import path, include
+from .views import UserProfileViewSet
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register(r'profile', UserProfileViewSet)
 
 urlpatterns = [
-    path('authorization/', CustomUserAPIView.as_view(), name='authorization'),
+    path('', include(router.urls)),
 ]
