@@ -1,0 +1,27 @@
+/* CSS для корневого элемента ReactCrop */
+.react-crop {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* CSS для области обрезки */
+  .react-crop__crop-selection {
+    border: 2px dashed #444; /* Линия обрезки - можно настроить на свой вкус */
+  }
+  
+  /* CSS для кнопки изменения размера области обрезки */
+  .react-crop__resize-handle {
+    background-color: #444; /* Цвет кнопки изменения размера - можно настроить на свой вкус */
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* CSS для кнопки изменения позиции области обрезки */
+  .react-crop__drag-handle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #444; /* Цвет кнопки изменения позиции - можно настроить на свой вкус */
+    cursor: move;
+  }

@@ -87,6 +87,12 @@
     padding: 10px;
 }
 
+.review-username {   
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    text-decoration: none;
+    color: #7A42A6;
+}
+
 .review-text {
     padding: 5px;
     font-weight: bold!important;

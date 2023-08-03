@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
+from WebApp.models import FilmReview
 
 
 
@@ -28,7 +29,21 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class ProfileReviewSerializer(serializers.ModelSerializer):
+    film_name = serializers.CharField(source="film.film_name", read_only=True)
+
+    class Meta:
+        model = FilmReview
+        fields = ['id', 'film', 'film_name', 'review', 'star_rating']
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField()
+
     class Meta:
         model = CustomUser
-        fields = ['id', 'first_name', 'last_name', 'avatar']
+        fields = ['id', 'first_name', 'last_name', 'avatar', 'reviews']
+
+    def get_reviews(self, user):
+        review = FilmReview.objects.filter(user=user)
+        return ProfileReviewSerializer(review, many=True).data

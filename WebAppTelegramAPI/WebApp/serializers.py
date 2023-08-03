@@ -17,7 +17,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = FilmReview
         exclude = ['id', 'user', 'film']
-
+        
 
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,6 +11,7 @@ import UserProfile from './containers/UserProfile';
 import Home from "./containers/Home";
 import PrivateRoutes from './utils/PrivateRoutes';
 import Activate from './containers/Activate';
+import CropAvatar from './components/imageCrop';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         </Route>  
         <Route path="/film/:slug" element={<Film />} />
         <Route path="/profile/:id/" element={<UserProfile/>}/>
+        <Route path="/crop" element={<CropAvatar />}/>
       </Routes>
     </>
   );

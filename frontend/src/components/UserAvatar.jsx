@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const UserAvatar = () => {
-    const {user, authTokens} = useContext(AuthContext)
+    const {user, authTokens, logoutUser} = useContext(AuthContext)
     const [avatar, setAvatar] = useState('')
 
     const navigate = useNavigate()
@@ -18,8 +18,10 @@ const UserAvatar = () => {
                 'Authorization': `Bearer ${authTokens.access}`
             }})
             .then((response) => {
-                console.log(response.data, 'mac tra')
                 setAvatar(response.data.avatar)
+            })
+            .catch(error => {
+                logoutUser()
             })
         } else {
             navigate('/login')

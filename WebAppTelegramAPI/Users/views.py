@@ -7,3 +7,4 @@ class UserProfileViewSet(ReadOnlyModelViewSet):
     permission_classes = []
     queryset = CustomUser.objects.all()
     serializer_class = UserProfileSerializer
+

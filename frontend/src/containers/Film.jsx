@@ -11,8 +11,8 @@ const Film = () => {
     const [film, setFilm] = useState(null);
     const [star_rating, setRating] = useState(0);
     const [review, setReview] = useState('');
-    const [allReviews, setAllReviews] = useState({'data': [], 'next': ''})
-    const {authTokens, user} = useContext(AuthContext)
+    const [allReviews, setAllReviews] = useState({data: [], next: ''})
+    const {authTokens} = useContext(AuthContext)
 
     const { slug } = useParams()
     const navigate = useNavigate()
@@ -21,7 +21,7 @@ const Film = () => {
     useEffect(() => {
       axios.get(`http://127.0.0.1:8000/api/v1/films/${slug}/`)
       .then((response) => {
-        {/* Request film by slug in url */}
+        // Request film by slug in url
         setFilm(response.data);
       })
       .catch((error) => {
@@ -30,17 +30,17 @@ const Film = () => {
       
       axios.get(`http://127.0.0.1:8000/api/v1/films/${slug}/reviews`)
       .then((response) => {
-        {/* Request reviews by film slug name */}
+        // Request reviews by film slug name
         setAllReviews({
           data: response.data.results,
           next: response.data.next,
         });
       })
-    }, []);
+    }, [slug]);
 
 
     const moreReview = () => {
-      {/* Request more reviews if user click button */}
+      // Request more reviews if user click button
       axios.get(allReviews.next)
       .then((response) => {
         setAllReviews({
@@ -56,7 +56,7 @@ const Film = () => {
     };
 
     const handleSubmitRating = (event) => {
-      {/* If user is authenticated - post request for add review, else - navigate to login page */}
+      // If user is authenticated - post request for add review, else - navigate to login page
       event.preventDefault()
       if (star_rating > 0) {
         if (authTokens === null) {
@@ -83,7 +83,7 @@ const Film = () => {
         <Grid item lg={3} md={4} xs={12}>
           {/* Poster and film name */}
           <Box className="film-header">
-            <img className="film-poster" src={film.film_poster}/>
+            <img className="film-poster" src={film.film_poster} alt={film.film_name}/>
             <Typography className="film-name">{film.film_name}</Typography>
           </Box>
           
@@ -127,7 +127,7 @@ const Film = () => {
             </form>
           {allReviews.data.map((review, index) => (
             <Paper className="user-reviews" key={index}>
-              <Link to={`/profile/${review.user_id}`}><Typography>{review.first_name}</Typography></Link>
+              <Link to={`/profile/${review.user_id}`} style={{textDecoration: 'none'}}><Typography className="review-username">{review.first_name}</Typography></Link>
               <Rate allowHalf defaultValue={review.star_rating / 2} disabled className="review-rating" />
               <Typography className="review-text">{review.review}</Typography>
             </Paper>
