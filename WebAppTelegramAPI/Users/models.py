@@ -5,14 +5,10 @@ from django.core.exceptions import ValidationError
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    def validate_image(fieldfile_obj):
-        filesize = fieldfile_obj.file.size
-        if filesize > 1024*1024:
-            raise ValidationError("Max file size is %sMB")
         
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    avatar = models.ImageField(default="users/default.png", upload_to="users/", blank=True, validators=[validate_image]) 
+    avatar = models.ImageField(default="users/default.png", upload_to="users/", blank=True) 
     email = models.EmailField(verbose_name="email", unique=True)
     date_joined = models.DateField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateField(verbose_name="last login", auto_now=True)

@@ -31,10 +31,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class ProfileReviewSerializer(serializers.ModelSerializer):
     film_name = serializers.CharField(source="film.film_name", read_only=True)
+    slug_film_name = serializers.CharField(source="film.slug_film_name", read_only=True)
 
     class Meta:
         model = FilmReview
-        fields = ['id', 'film', 'film_name', 'review', 'star_rating']
+        fields = ['id', 'film', 'film_name', 'slug_film_name', 'review', 'star_rating']
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
