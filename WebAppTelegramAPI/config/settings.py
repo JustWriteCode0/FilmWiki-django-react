@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'WebApp.apps.WebAppConfig',
     'TelegramAPI.apps.TelegramApiConfig',
     'Users.apps.UsersConfig',
+    'django_filters',
 ]
 
 INTERNAL_IPS = [

@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import FilmCategories, Film, Actor, FilmImage, FilmReview
 
 
-
 class FilmImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = FilmImage

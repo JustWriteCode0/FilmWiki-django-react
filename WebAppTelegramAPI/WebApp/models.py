@@ -40,6 +40,7 @@ class Film(models.Model):
     box_office = models.IntegerField()
     rating_imdb = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
     category = models.ManyToManyField(FilmCategories)
+    date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.film_name   

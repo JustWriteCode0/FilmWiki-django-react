@@ -4,13 +4,18 @@ from .serializers import FilmSerializer, FilmCategoriesSerializer, FilmImageSeri
 from .models import Film, FilmCategories, Actor, FilmImage, FilmReview
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly  
 from .permissions import CustomFilmPermission
-from .paginations import ReviewsPagination
+from .paginations import ReviewsPagination, FilmCatalogPagination
 from rest_framework.generics import ListAPIView, CreateAPIView
+from django_filters.rest_framework.backends import DjangoFilterBackend
+from .filters import FilmCatalogFilter
 
 
 class FilmViewSet(viewsets.ModelViewSet):
     queryset = Film.objects.all()
-    permission_classes = [CustomFilmPermission,]
+    permission_classes = [CustomFilmPermission]
+    pagination_class = FilmCatalogPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = FilmCatalogFilter
     lookup_field='slug_film_name'
 
     def get_serializer_class(self):
