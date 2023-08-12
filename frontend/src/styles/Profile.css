@@ -1,27 +1,73 @@
-/* CSS для корневого элемента ReactCrop */
-.react-crop {
-    position: relative;
-    max-width: 100%;
-    height: auto;
+.profile-avatar {
+  padding-top: 15px;
+  border-radius: 50%;
+}
+
+.profile-header { 
+  border-radius: 10px;
+  background-color: #3b3b3b;
+  text-align: center;
+}
+
+.profile-header .username {
+  font-family: 'Cuprum-SemiBold';
+  color: #7A42A6;
+  font-size: 24px;
+}
+
+.profile-review {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #3b3b3b!important;
+}
+
+.review-film-name {
+  color: #000;
+  font-family: 'Cuprum-SemiBold'!important;
+}
+
+
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 0px) {
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
   }
-  
-  /* CSS для области обрезки */
-  .react-crop__crop-selection {
-    border: 2px dashed #444; /* Линия обрезки - можно настроить на свой вкус */
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
   }
-  
-  /* CSS для кнопки изменения размера области обрезки */
-  .react-crop__resize-handle {
-    background-color: #444; /* Цвет кнопки изменения размера - можно настроить на свой вкус */
-    border-radius: 50%;
-    cursor: pointer;
+  .profile-avatar {
+    width: 200px;
+    height: 200px;
   }
-  
-  /* CSS для кнопки изменения позиции области обрезки */
-  .react-crop__drag-handle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #444; /* Цвет кнопки изменения позиции - можно настроить на свой вкус */
-    cursor: move;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
   }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}

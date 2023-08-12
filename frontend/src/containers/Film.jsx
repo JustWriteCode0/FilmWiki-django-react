@@ -118,7 +118,7 @@ const Film = () => {
         </Grid>
         <Box className="review-container">
           {/* Review form and all reviews */}
-            <Rate allowHalf className="review-rating" onChange={handleChangeRating}/> 
+            <Rate allowHalf className="review-rating" onChange={handleChangeRating} style={{ marginBottom: '10px' }}/> 
             <form onSubmit={handleSubmitRating}>
               <Box className="form-review">
                 <TextField required fullWidth className="review-field" onChange={(event) => setReview(event.target.value)}>your review</TextField>

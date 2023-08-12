@@ -1,44 +1,38 @@
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AvatarUpload from "../components/imageCrop";
-import { Button } from 'antd';
-import { useState } from 'react';
-
-const DialogImageCrop = (open, imageData) => {
-    const [selectedImage, setSelectedImage] = useState(null);
+import { useEffect, useState } from 'react';
+import {Button, Typography, DialogTitle, DialogContentText, DialogContent, DialogActions, Dialog} from "@mui/material";
+import AvatarUpload from "../components/AvatarUpload";
+import '../styles/DialogImageCrop.css'
 
 
-    const handleImageSelect = (imageData) => {
-        setSelectedImage(imageData);
-      };
+const DialogImageCrop = ({selectedImage}) => {
+    const [open, setOpen] = useState(false)
 
+    useEffect(() => {
+        // when user choose some image open dialog for crop-select
+        if (selectedImage) {
+            setOpen(true)
+        }
+    }, [selectedImage])
+
+    const handleClose = () => {
+        setOpen(false)
+    }
 
     return(
         <div>
             <Dialog
-                open="false"
+                open={open}
+                onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                className="dialog-container"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Crop your avatar"}
+                    <Typography className="title-dialog">Crop your avatar</Typography>
                 </DialogTitle>
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    <div>
-                        {selectedImage && <img src={selectedImage} alt="Avatar Preview" />}
-                        <AvatarUpload onImageSelect={handleImageSelect} />
-                    </div>
-                </DialogContentText>
+                    <AvatarUpload onClose={handleClose} selectedImage={selectedImage} />
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
             </Dialog>
         </div>
     )

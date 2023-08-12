@@ -1,0 +1,25 @@
+.MuiDialog-paper {
+    
+    background: #2c2c2c!important;
+    /* Другие стили по желанию */
+}
+
+.title-dialog {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    color: #7A42A6!important;
+    font-size: 24px!important;
+}
+
+.dialog-action-btn {
+    font-family: 'Cuprum-BoldItalic', sans-serif !important;
+    background: #7A42A6!important;
+    color: #2c2c2c!important;
+}
+
+
+@media (max-width: 365px) {
+    .MuiDialog-paper {
+        margin: 0px 0px!important;
+        width: 100%!important;
+    }
+}

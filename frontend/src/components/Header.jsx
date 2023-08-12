@@ -23,8 +23,6 @@ const Header = () => {
             ) : (
               <Stack spacing={2} direction="row">
                 <Link to="/films-catalog" className="nav-link">films</Link>
-                <Link to="/films-catalog" className="nav-link">popular</Link>
-                <Link to="/films-catalog" className="nav-link">rating</Link>
               </Stack>
             )}
             {user ? (

@@ -1,21 +1,20 @@
 import {React, useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 
 const Activate = () => { 
     const [exeption, setExeption] = useState('')
-    const url = window.location.pathname.split('/')
-
+    
+    const { uid } = useParams()
+    const { token } = useParams()
     const navigate = useNavigate()
 
+    
     useEffect(() => {
-        console.log('call')
-        axios.post('http://127.0.0.1:8000/auth/users/activation/', {uid: url[2], token: url[3]})
+        axios.post('http://127.0.0.1:8000/auth/users/activation/', {uid, token})
         .then((response) => {
-            if (response.status === 200) {
-                navigate('/')
-            }
+            navigate('/')
         })
         .catch(function (error){
             if (error.response) {
@@ -26,7 +25,6 @@ const Activate = () => {
         })
     }, []);
         
-    
     return(
         <>
             <h1>activation</h1>

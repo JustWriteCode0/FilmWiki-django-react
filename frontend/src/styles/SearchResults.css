@@ -1,0 +1,50 @@
+.overlay-container {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 50vw;
+    max-height: 50vh;
+    background-color: #3b3b3be6; /* Прозрачный белый цвет (пример) */
+    border-radius: 8px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px #0000001a; /* Тень для блока */
+    z-index: 2; /* Выставьте z-index выше, чем у остальных элементов, чтобы положить этот блок наверх */
+  }
+  
+  .overlay-content {
+    padding: 16px;
+  }
+  
+  .result-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #2c2c2c; /* Белый фон для контента */
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px #8a8a8a1a; /* Тень для блока */
+  }
+
+.search-film-preview {
+    height: 60px;
+    margin-left: auto;
+}
+
+.result-film-name {
+    font-family: 'Cuprum-SemiBold'!important;
+    color: #b3b3b3;
+}
+
+
+@media (max-width: 480px) {
+    .overlay-container {
+        width: 95vw;
+    }
+}

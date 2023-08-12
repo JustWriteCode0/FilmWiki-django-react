@@ -5,13 +5,11 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import FilmsCatalog from "./containers/FilmsCatalog";
 import Film from "./containers/Film"
-import ResetPassword from "./containers/ResetPassword";
-import ResetPasswordConfirm from "./containers/ResetPasswordConfirm";
-import UserProfile from './containers/UserProfile';
+import Profile from './containers/Profile';
+import OwnProfile from './containers/OwnProfile';
 import Home from "./containers/Home";
-import PrivateRoutes from './utils/PrivateRoutes';
 import Activate from './containers/Activate';
-import CropAvatar from './components/imageCrop';
+import AvatarUpload from './components/AvatarUpload';
 
 
 function App() {
@@ -24,15 +22,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
         <Route path="/activate/:uid/:token" element={<Activate />} />
-        <Route element={<PrivateRoutes />}>
-          <Route path="/films-catalog" element={<FilmsCatalog />}/>
-        </Route>  
+        <Route path="/films-catalog" element={<FilmsCatalog />} />
         <Route path="/film/:slug" element={<Film />} />
-        <Route path="/profile/:id/" element={<UserProfile/>}/>
-        <Route path="/crop" element={<CropAvatar />}/>
+        <Route path="/my-profile/" element={<OwnProfile />} />
+        <Route path="/profile/:id/" element={<Profile/>} />
+        <Route path="/crop" element={<AvatarUpload />}/>
       </Routes>
     </>
   );

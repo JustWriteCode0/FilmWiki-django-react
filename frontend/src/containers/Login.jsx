@@ -3,42 +3,29 @@ import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedIn
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import AuthContext from "../components/context/AuthContext";
-import {useFormik} from "formik"
+import FormValidation from "../components/FormValidation";
 
 
 const Login = () => {
     const {loginUser} = useContext(AuthContext)
     const [showPassword, setShowPassword] = useState(false)
-    const [errors, setErrors] = useState({email: '', password: ''})
+    const [validationError, setValidationError] = useState('')
+    const [form, setForm] = useState({'email': '', 'password': ''});
+    const {email, password} = form;
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        onSubmit: async (values) => {
-            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
-                setErrors({email: "Email is not valid"})
-                console.log(errors.email)
-            } else {
-                setErrors({email: ''})
-                if (!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/.test(values.password)) {
-                    setErrors({password: 'Password should contain 1 special charter 1 digit 1 lower case and upper case'})
-                } else {
-                    setErrors({password: ''})
-                    await loginUser(values)
-                }
-            }
-        },
-    })
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        formik.handleSubmit(e)
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        const isValid = FormValidation(email, password)
+        
+        if (isValid === true) {
+            loginUser(form)
+        } else {
+            setValidationError(isValid)
+        }
     }
 
     return(
@@ -46,18 +33,19 @@ const Login = () => {
             <Typography className="form-layout">Login</Typography>
             <form onSubmit={handleSubmit}>
                 <FormControl fullWidth  >
+                    {/* Email field */}
                     <TextField
                         id="email"
                         name="email"
                         className="input-auth-registration"
                         required
                         label="Email"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}>
+                        value={form.email}
+                        onChange={(event) => setForm({...form, email: event.target.value})}>
                     </TextField>
-                    {errors.email ? <Typography  fontWeight={700} sx={{color: "#7A42A6",}}>{errors.email}</Typography> : ''}
                 </FormControl>
                 <FormControl fullWidth>
+                    {/* Passwod field with hide-show */}
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -65,8 +53,8 @@ const Login = () => {
                         className="input-auth-registration" 
                         type={showPassword ? "text" : "password"}
                         required 
-                        value={formik.values.password}
-                        onChange={formik.handleChange} 
+                        value={form.password}
+                        onChange={(event) => setForm({...form, password: event.target.value})} 
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -75,7 +63,7 @@ const Login = () => {
                                     {showPassword ? <Visibility /> : <VisibilityOff /> }
                                 </IconButton>
                             </InputAdornment>}/>
-                            {errors.password ? <Typography  fontWeight={700} sx={{color: "#7A42A6",}}>{errors.password}</Typography> : ''}
+                            {validationError ? <Typography  fontWeight={700} sx={{color: "#7A42A6",}}>{validationError}</Typography> : ''}
                 </FormControl>
                 <Button fullWidth type="submit" className="submit-auth-registration">submit</Button>
                 <Link className="link-under-login" to="/reset-password"><Typography fontWeight={500} sx={{ marginTop: 1, textAlign: "left", color: "#7A42A6",}}>Forget your password?</Typography></Link>
