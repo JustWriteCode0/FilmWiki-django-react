@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import FilmCategories, Film, Actor, FilmImage, FilmReview
+from .models import FilmCategory, Film, Actor, FilmImage, FilmReview
 
 
 class FilmImageSerializer(serializers.ModelSerializer):
@@ -26,10 +26,16 @@ class ActorSerializer(serializers.ModelSerializer):
 
 class FilmSerializer(serializers.ModelSerializer):
     images = FilmImageSerializer(many=True)
+    actors_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Film
-        fields = ['id', 'film_name', 'film_poster', 'slug_film_name', 'country', 'release_date', 'author', 'actors', 'describe', 'rating_imdb', 'box_office', 'category', 'images']
+        fields = ['id', 'film_name', 'film_poster', 'slug_film_name', 'country', 'release_date', 'author', 'actors_name',  'describe', 'rating_imdb', 'box_office', 'category', 'images']
+
+    def get_actors_name(self, obj):
+        actors = obj.actors.all()
+        actor_names = [f"{actor.first_name} {actor.last_name}" for actor in actors]
+        return ", ".join(actor_names)
 
 
 class FilmCatalogSerializer(serializers.ModelSerializer):
@@ -38,7 +44,7 @@ class FilmCatalogSerializer(serializers.ModelSerializer):
         fields = ['id', 'film_name', 'film_poster', 'slug_film_name']
 
 
-class FilmCategoriesSerializer(serializers.ModelSerializer):
+class FilmCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = FilmCategories
+        model = FilmCategory
         fields = ['id', 'category_name']

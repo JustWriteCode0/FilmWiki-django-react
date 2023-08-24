@@ -126,6 +126,16 @@ DJOSER = {
     },
 }
 
+DJOSER_EMAIL = {
+    'activation': 'Users.serializers.ActivationEmail'
+}
+
+if 'EMAIL' in DJOSER:
+    DJOSER['EMAIL'].update(DJOSER_EMAIL)
+else:
+    DJOSER['EMAIL'] = DJOSER_EMAIL
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),

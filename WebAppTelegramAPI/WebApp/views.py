@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import FilmSerializer, FilmCategoriesSerializer, FilmImageSerializer, FilmCatalogSerializer, ReviewSerializer
-from .models import Film, FilmCategories, Actor, FilmImage, FilmReview
+from .serializers import FilmSerializer, FilmCategorySerializer, FilmImageSerializer, FilmCatalogSerializer, ReviewSerializer
+from .models import Film, FilmCategory, Actor, FilmImage, FilmReview
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly  
 from .permissions import CustomFilmPermission
 from .paginations import ReviewsPagination, FilmCatalogPagination
@@ -26,8 +26,8 @@ class FilmViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = FilmCategories.objects.all()
-    serializer_class = FilmCategoriesSerializer
+    queryset = FilmCategory.objects.all()
+    serializer_class = FilmCategorySerializer
     permission_classes = [CustomFilmPermission,]
 
 

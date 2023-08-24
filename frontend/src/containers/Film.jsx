@@ -105,7 +105,7 @@ const Film = () => {
             <Typography className="film-info">category: {film.category}</Typography>
             <Typography className="film-info">Box office: {film.box_office}$</Typography>
             <Typography className="film-info">Author: {film.author}</Typography>
-            <Typography className="film-info">Actors: {film.actors}</Typography>
+            <Typography className="film-info">Actors: {film.actors_name}</Typography>
           </Box>
         </Grid>
         <Grid item lg={12} md={8} xs={12}>

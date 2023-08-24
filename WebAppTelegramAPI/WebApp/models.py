@@ -4,7 +4,7 @@ from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 from Users.models import CustomUser
 
-class FilmCategories(models.Model):
+class FilmCategory(models.Model):
     category_name = models.CharField(max_length=150)
     
     def __str__(self):
@@ -39,7 +39,7 @@ class Film(models.Model):
     describe = models.TextField(null=True, blank=True)
     box_office = models.IntegerField()
     rating_imdb = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)], null=True, blank=True)
-    category = models.ManyToManyField(FilmCategories)
+    category = models.ManyToManyField(FilmCategory)
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -54,6 +54,7 @@ class Film(models.Model):
 
     class Meta:
         db_table = "films"
+        ordering = ['id']
 
 
 class FilmReview(models.Model):

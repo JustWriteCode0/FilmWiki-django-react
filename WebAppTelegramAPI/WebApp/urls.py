@@ -5,7 +5,7 @@ from .views import FilmViewSet, CategoryViewSet, FilmReviewCreateView, FilmRevie
 routerFilm = routers.DefaultRouter()
 routerFilm.register(r'films', FilmViewSet, basename='films')
 routerCategory = routers.SimpleRouter()
-routerCategory.register('category', CategoryViewSet)
+routerCategory.register('category', CategoryViewSet, basename='category')
 
 urlpatterns = [
     path('films/<slug:slug>/reviews/', FilmReviewListView.as_view(), name='film-review-list'),
