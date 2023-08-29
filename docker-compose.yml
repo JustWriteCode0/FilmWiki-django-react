@@ -1,0 +1,35 @@
+services:
+  web-app:
+    build:
+      context: ./backend/FilmWiki
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/FilmWiki:/FilmWiki
+    
+    environment:
+      - DB_HOST=database
+      - DB_NAME=filmwikidibi
+      - DB_USER=postgres
+      - DB_PASS=postgres
+
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    
+    depends_on:
+      - database
+    
+  database:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=filmwikidibi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  react-app:
+    image: docker-react-i
+    build:
+      context: ./frontend/
+    ports:
+      - 3000:3000
+    command: npm start

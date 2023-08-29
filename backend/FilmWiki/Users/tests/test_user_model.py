@@ -10,7 +10,6 @@ client = APIClient()
 @pytest.mark.django_db
 def test_users(user_factory):
     user = user_factory.create()
-    print(user.email)
     assert True    
 
 @pytest.mark.django_db

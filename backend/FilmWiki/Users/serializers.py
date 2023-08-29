@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
-from WebApp.models import FilmReview
+from FilmWikiAPI.models import FilmReview
 from django.contrib.auth.tokens import default_token_generator
 from templated_mail.mail import BaseEmailMessage
 from djoser import utils

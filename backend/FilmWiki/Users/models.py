@@ -5,13 +5,12 @@ from django.core.exceptions import ValidationError
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-        
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     avatar = models.ImageField(default="users/default.png", upload_to="users/", blank=True) 
     email = models.EmailField(verbose_name="email", unique=True)
-    date_joined = models.DateField(verbose_name="date joined", auto_now_add=True)
-    last_login = models.DateField(verbose_name="last login", auto_now=True)
+    date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=(False))

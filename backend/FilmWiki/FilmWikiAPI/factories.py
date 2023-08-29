@@ -9,7 +9,7 @@ class FilmImageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = FilmImage
     
-    film = factory.SubFactory('WebApp.factories.FilmFactory')
+    film = factory.SubFactory('FilmWikiAPI.factories.FilmFactory')
     image = factory.django.ImageField(filename='image.jpg')
 
 

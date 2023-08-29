@@ -40,7 +40,7 @@ const FilmsCatalog = () => {
     const handleClickSearch = () => {
       // when user click search button set result of search on page
       if (searchResults.length > 0) {
-        setFilmData(searchResults)
+        setFilmData({films: searchResults})
       }
     }
 

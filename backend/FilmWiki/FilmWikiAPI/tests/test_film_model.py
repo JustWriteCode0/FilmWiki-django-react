@@ -1,6 +1,6 @@
 import pytest 
-from WebApp.factories import FilmFactory, FilmImageFactory, FilmActorsFactory, CategoryFactory
-from WebApp.models import Film
+from FilmWikiAPI.factories import FilmFactory, FilmImageFactory, FilmActorsFactory, CategoryFactory
+from FilmWikiAPI.models import Film
 
 
 @pytest.mark.parametrize(
@@ -30,10 +30,9 @@ def test_film(db, film_name, film_poster, slug_film_name, country, release_date,
         "date_added": date_added,
     }
     film_factory_kwargs['actors'] = actors
-    film = FilmFactory(**film_factory_kwargs)
+    FilmFactory(**film_factory_kwargs)
     # Check the count of Film objects in the database
     item_count = Film.objects.all().count()
-    print(item_count)
     assert item_count == 1
 
     

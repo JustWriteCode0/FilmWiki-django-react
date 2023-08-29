@@ -42,16 +42,14 @@ def get_activation_data(user_data):
     return activation_data
 
 def activate_user(client, activation_url, activation_data):
-    act_response = client.post(activation_url, activation_data)
-    print(act_response, 'ACTIVATION')
-    return act_response
+    activation_response = client.post(activation_url, activation_data)
+    return activation_response
 
 
 def token_obtain_pair(client, payload):
     # create access and refresh token
     url = reverse('token_obtain_pair')
     token_response = client.post(url, payload)
-    print('TOKEN:', token_response.data)
     return token_response
 
 

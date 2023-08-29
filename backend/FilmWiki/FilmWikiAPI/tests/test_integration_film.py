@@ -1,12 +1,12 @@
 from Users.factories import UserFactory
-from WebApp.factories import FilmFactory
+from FilmWikiAPI.factories import FilmFactory
 from Users.serializers import EMAILS
 import pytest
 from rest_framework.test import APIClient
 from django.urls import reverse
 from rest_framework import status
 from Users.models import CustomUser
-from WebApp.models import FilmReview
+from FilmWikiAPI.models import FilmReview
 import json
 
 
@@ -27,7 +27,7 @@ def test_api_film():
     assert_film_creating(film_response, slug_film_name, film_list)
     assert_review_creating(review_response, review_payload)
 
-    
+
 def assert_review_creating(review_response, review_payload):
     assert review_response.status_code == status.HTTP_201_CREATED
     assert FilmReview.objects.all().count() == 1
@@ -51,6 +51,7 @@ def create_review_to_film(user, film, token, client):
         'star_rating': 5,
         'review': 'TestReview',
     }
+
     headers = {
         'Authorization': f'Bearer {access_token}',
     }
@@ -69,7 +70,7 @@ def activate_user_and_get_token(user, client):
 
     activation_url = 'http://127.0.0.1:8000/auth/users/activation/'
     activation_data = EMAILS[user['email']]
-    client.post(activation_url, activation_data)
+    client.post(activation_url, activation_data) #activate user
     
     token_url = reverse('token_obtain_pair')
     token_response = client.post(token_url, user)
@@ -81,7 +82,7 @@ def create_user(client):
     url = reverse('user-list')
     user = UserFactory.build()
     payload = {
-        'id': 4,
+        'id': 1,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
