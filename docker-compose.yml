@@ -9,7 +9,7 @@ services:
     
     environment:
       - DB_HOST=database
-      - DB_NAME=filmwikidibi
+      - DB_NAME=namedatabase
       - DB_USER=postgres
       - DB_PASS=postgres
 
@@ -22,7 +22,7 @@ services:
   database:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_DB=filmwikidibi
+      - POSTGRES_DB=namedatabase
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
