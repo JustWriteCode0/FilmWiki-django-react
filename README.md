@@ -1,4 +1,7 @@
 # WebApiTelegram-React
+
+![badge](https://badgen.net/badge/DRF/React/purple?icon=docker) ![badge](https://badgen.net/badge/Djoser/SimpleJWT/purple) ![badge](https://badgen.net/badge/UnitTests/IntegrationTests/purple) 
+
 <h3>In this project, i added authorization by jwt tokens and integration with frontend on react</h3>
 
 
