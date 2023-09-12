@@ -1,4 +1,4 @@
-# WebApiTelegram-React
+# FilmWiki
 
 ![badge](https://badgen.net/badge/DRF/React/purple?icon=docker) ![badge](https://badgen.net/badge/Djoser/SimpleJWT/purple) ![badge](https://badgen.net/badge/UnitTests/IntegrationTests/purple) 
 
